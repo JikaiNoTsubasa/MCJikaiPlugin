@@ -1,0 +1,5 @@
+name: MCJikaiPlugin
+main: ovh.triedge.mc.plugin.v3.MCJikaiPlugin
+version: 1.19
+author: Jikai
+api-version: 1.19
