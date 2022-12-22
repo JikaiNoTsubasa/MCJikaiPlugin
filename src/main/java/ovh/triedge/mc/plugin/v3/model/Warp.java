@@ -2,7 +2,7 @@ package ovh.triedge.mc.plugin.v3.model;
 
 public class Warp {
 
-	private String name, world, group = "none";
+	private String name, world;
 	private int locationX, locationY, locationZ;
 	private float pitch, yaw;
 	
@@ -24,12 +24,6 @@ public class Warp {
 	}
 	public void setWorld(String world) {
 		this.world = world;
-	}
-	public String getGroup() {
-		return group;
-	}
-	public void setGroup(String group) {
-		this.group = group;
 	}
 	public int getLocationX() {
 		return locationX;
