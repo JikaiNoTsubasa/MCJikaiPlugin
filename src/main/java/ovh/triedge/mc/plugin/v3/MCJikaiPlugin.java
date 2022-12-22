@@ -3,6 +3,9 @@ package ovh.triedge.mc.plugin.v3;
 import java.io.IOException;
 import java.util.logging.Level;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -14,6 +17,27 @@ import ovh.triedge.mc.plugin.v3.utils.Storage;
 public class MCJikaiPlugin extends JavaPlugin{
 
 	private PluginManager manager;
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		boolean res = false;
+		if (sender != null && sender instanceof Player) {
+			Player player = (Player) sender;
+			String cmd = command.getName();
+			switch (cmd) {
+			case "detector":
+				getManager().onDetectorCommand(player);
+				break;
+			/*
+			case "inv":
+				getManager().onInvCommand(player, args);
+				res = true;
+				break;
+				*/
+			}
+		}
+		return res;
+	}
 	
 	@Override
 	public void onDisable() {
