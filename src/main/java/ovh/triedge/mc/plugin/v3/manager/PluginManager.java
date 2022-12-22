@@ -20,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.util.Vector;
 
 import ovh.triedge.mc.plugin.v3.MCJikaiPlugin;
 import ovh.triedge.mc.plugin.v3.model.User;
@@ -34,6 +35,87 @@ public class PluginManager implements Listener{
 	private UserList users;
 	private WarpList warps;
 	private MCJikaiPlugin plugin;
+	
+	public void onWarpCommand(Player player, String[] args) {
+		if (args.length > 0) {
+			switch(args[0]) {
+			case "create":
+				actionCreateWarp(player,args);
+				break;
+			case "delete":
+				actionDeleteWarp(player,args);
+				break;
+			case "list":
+				actionListWarp(player,args);
+				break;
+			}
+		}else {
+			// Display help
+			player.sendMessage(ChatColor.RED+"Il manque un paramètre!");
+		}
+	}
+	
+	private void actionCreateWarp(Player player, String[] args) {
+		if (args.length < 2) {
+			player.sendMessage(ChatColor.RED+"Il manque le nom du TP!");
+			return;
+		}
+		String name = args[1];
+		Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+
+		if (block.getType().equals(Material.DIAMOND_BLOCK)) {
+			Vector vector = player.getLocation().toVector();
+			String world = player.getWorld().getName();
+			float pitch = player.getLocation().getPitch();
+			float yaw = player.getLocation().getYaw();
+			Warp warp = new Warp(name);
+			warp.setWorld(world);
+			warp.setLocationX(vector.getBlockX());
+			warp.setLocationY(vector.getBlockY());
+			warp.setLocationZ(vector.getBlockZ());
+			warp.setPitch(pitch);
+			warp.setYaw(yaw);
+			warps.addWarp(warp);
+
+			player.sendMessage(ChatColor.GREEN+"Cible de teleportation sauvegardé: "+name);
+			getPlugin().getLogger().info("# REGISTER TP: "+name+"["+vector.getBlockX()+"/"+vector.getBlockY()+"/"+vector.getBlockZ()+"]");
+		}else {
+			player.sendMessage("Vous devez etre sur un block de diamant pour cette commande.");
+		}
+
+	}
+	
+	private void actionDeleteWarp(Player player, String[] args) {
+		if (args.length < 2) {
+			player.sendMessage(ChatColor.RED+"Il manque le nom du TP!");
+			return;
+		}
+		String name = args[1];
+		Warp warp = warps.getWarp(name);
+		if (warp == null) {
+			player.sendMessage(ChatColor.RED+"TP non trouvé");
+			return;
+		}
+
+		warps.getWarps().remove(warp);
+		player.sendMessage(ChatColor.GREEN+"TP "+name+" supprimé");
+	}
+	
+	private void actionListWarp(Player player, String[] args) {
+		if (warps.getWarps().isEmpty()) {
+			player.sendMessage("Liste vide!");
+			return;
+		}
+		StringBuilder tmp = new StringBuilder();
+		for (Warp warp : warps.getWarps()) {
+			String name = warp.getName();
+			if (!name.startsWith("h_")) {
+				tmp.append(name);
+				tmp.append(", ");
+			}
+		}
+		player.sendMessage(tmp.toString());
+	}
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {

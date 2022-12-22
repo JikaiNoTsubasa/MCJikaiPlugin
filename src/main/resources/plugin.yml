@@ -7,10 +7,7 @@ api-version: 1.19
 commands:
   warp:
     description: Manipule les teleporteurs
-    usage: /warp create|remove|setgroup|removegroup TP_NAME [GROUP_NAME]
-  warpgroup:
-    description: Manipule les groupes
-    usage: /warpgroup create|delete|add|remove TP_NAME [PLAYER_NAME]
+    usage: /warp create|remove TP_NAME
   detector:
     description: Detecte les metaux
     usage: /detector

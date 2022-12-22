@@ -32,6 +32,9 @@ public class MCJikaiPlugin extends JavaPlugin{
 			case "clearsnowball":
 				getManager().onClearSnowballs();
 				return true;
+			case "warp":
+				getManager().onWarpCommand(player, args);
+				return true;
 			/*
 			case "inv":
 				getManager().onInvCommand(player, args);
