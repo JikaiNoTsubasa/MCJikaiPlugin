@@ -19,12 +19,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import ovh.triedge.mc.plugin.v3.MCJikaiPlugin;
 import ovh.triedge.mc.plugin.v3.model.User;
 import ovh.triedge.mc.plugin.v3.model.UserList;
+import ovh.triedge.mc.plugin.v3.model.WarpList;
 import ovh.triedge.mc.plugin.v3.utils.Config;
 import ovh.triedge.mc.plugin.v3.utils.Utils;
 
 public class PluginManager implements Listener{
 
 	private UserList users;
+	private WarpList warps;
 	private MCJikaiPlugin plugin;
 	
 	@EventHandler
@@ -166,6 +168,14 @@ public class PluginManager implements Listener{
 
 	public void setUsers(UserList users) {
 		this.users = users;
+	}
+
+	public WarpList getWarps() {
+		return warps;
+	}
+
+	public void setWarps(WarpList warps) {
+		this.warps = warps;
 	}
 	
 	

@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import ovh.triedge.mc.plugin.v3.manager.PluginManager;
 import ovh.triedge.mc.plugin.v3.manager.ScheduledTask;
 import ovh.triedge.mc.plugin.v3.model.UserList;
+import ovh.triedge.mc.plugin.v3.model.WarpList;
 import ovh.triedge.mc.plugin.v3.utils.Storage;
 
 public class MCJikaiPlugin extends JavaPlugin{
@@ -75,6 +76,9 @@ public class MCJikaiPlugin extends JavaPlugin{
 			UserList list = Storage.loadUsers();
 			getManager().setUsers(list);
 			getLogger().log(Level.INFO, "Loaded "+list.getUsers().size()+" users");
+			WarpList warps = Storage.loadWarps();
+			getManager().setWarps(warps);
+			getLogger().log(Level.INFO, "Loaded "+warps.getWarps().size()+" warps");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
