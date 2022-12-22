@@ -28,6 +28,9 @@ public class MCJikaiPlugin extends JavaPlugin{
 			case "detector":
 				getManager().onDetectorCommand(player);
 				break;
+			case "clearsnowball":
+				getManager().onClearSnowballs();
+				return true;
 			/*
 			case "inv":
 				getManager().onInvCommand(player, args);

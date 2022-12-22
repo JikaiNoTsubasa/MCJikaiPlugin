@@ -14,3 +14,6 @@ commands:
   detector:
     description: Detecte les metaux
     usage: /detector
+  learsnowball:
+    description: Clear toutes les snowballs sur la map
+    usage: /clearsnowball

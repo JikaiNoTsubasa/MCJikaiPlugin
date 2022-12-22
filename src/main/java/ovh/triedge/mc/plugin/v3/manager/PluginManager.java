@@ -1,13 +1,17 @@
 package ovh.triedge.mc.plugin.v3.manager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -77,6 +81,18 @@ public class PluginManager implements Listener{
 					player.sendMessage(ChatColor.GREEN+name+" -> X:"+b.getX()+" Y:"+b.getY()+" Z:"+b.getZ());
 					
 			}
+		}
+	}
+	
+	public void onClearSnowballs() {
+		List<World> worlds = getPlugin().getServer().getWorlds();
+		for (World world : worlds) {
+			List<Entity> entList = world.getEntities();//get all entities in the world
+			 for(Entity current : entList){//loop through the list
+		            if (current instanceof Snowball){//make sure we aren't deleting mobs/players
+		            	current.remove();//remove it
+		            }
+			 }
 		}
 	}
 	
